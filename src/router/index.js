@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Login from '@/views/login'
 import Home from '@/views/home'
 import Welcome from '@/views/welcome'
+import NotFound from '@/views/404'
 
 Vue.use(VueRouter)
 
@@ -16,8 +17,13 @@ const router = new VueRouter({
       children: [
         { path: '/', name: 'welcome', component: Welcome }
       ]
-    }
+    },
+    { path: '*', name: '404', component: NotFound }
   ]
 })
-
+router.beforeEach((to, from, next) => {
+  const user = window.sessionStorage.getItem('hm73-toutiao')
+  if (to.path !== '/login' && !user) return next('/login')
+  next()
+})
 export default router
