@@ -62,31 +62,16 @@ export default {
   methods: {
     login () {
       // 整体表单的校验
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          // 如果校验成功 进行登录
-          this.$http
-            .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-              this.loginForm
-            )
-            .then(res => {
-              // res 是响应对象  包含响应数据
-              const data = res.data
-              // 后台的返回的json内容  已经转换成了对象
-              console.log(data)
-              // 登录成功后：做什么事情？
-              // 1. 跳转到首页
-              // 2. 保存登录状态
-              // 2.1 保存登录后返回的用户信息 包含token
-              // 2.2 使用 sessionStorage 来存储   关闭浏览器会话失效
-              window.sessionStorage.setItem('hm73-toutiao', JSON.stringify(res.data.data))
-              this.$router.push('/')
-            })
-            .catch(() => {
-              // 提示错误  使用组件  消息提示组件
-              this.$message.error('用户名或密码错误')
-            })
+          // try{业务逻辑}catch{错误处理}
+          try {
+            const res = await this.$http.post('authorizations', this.loginForm)
+            window.sessionStorage.setItem('hm73-toutiao', JSON.stringify(res.data.data))
+            this.$router.push('/')
+          } catch (err) {
+            this.$message.error('用户名或密码错误')
+          }
         }
       })
     }

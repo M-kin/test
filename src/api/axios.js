@@ -34,7 +34,6 @@ instance.interceptors.response.use(response => {
 }, (error) => {
   // 做自己的事情 错误的时候
   // 如果响应状态码是 401 拦截到登录页面
-  // error.response.status 状态码
   if (error.response.status === 401) {
     // hash 是location提供获取操作 地址栏的#后的地址的属性
     location.hash = '#/login'
