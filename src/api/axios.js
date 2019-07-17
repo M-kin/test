@@ -1,5 +1,4 @@
 // 封装axios
-// 封装axios
 import axios from 'axios'
 
 // 创建一个axios对象 使用｛｝的配置项

@@ -44,7 +44,7 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header class="my-header">
+    <el-header class="my-header">
         <span class="el-icon-s-fold" @click="toggleMenu()"></span>
         <span class="text">江苏传智播客教育科技有限公司</span>
         <el-dropdown style="float:right">
@@ -53,10 +53,10 @@
               style="vertical-align:middle"
               width="30"
               height="30"
-              src="../../assets/images/avatar.jpg"
+              :src="avatar"
               alt
             />
-            <b style="vertical-align:middle;padding-left:5px">黑马小哥</b>
+            <b style="vertical-align:middle;padding-left:5px">{{name}}</b>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -64,7 +64,7 @@
             <el-dropdown-item icon="el-icon-unlock" @click.native ="logout()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </el-header>
+</el-header>
       <el-main>
         <!-- 显示二级路由对应的组件 -->
         <router-view></router-view>
@@ -88,15 +88,15 @@ export default {
     this.avatar = user.photo
   },
   methods: {
-    toggleMenu () {
-      this.collapse = !this.collapse
-    },
     setting () {
       this.$router.push('/setting')
     },
     logout () {
       window.sessionStorage.removeItem('hm73-toutiao')
       this.$router.push('/login')
+    },
+    toggleMenu () {
+      this.collapse = !this.collapse
     }
   }
 }
